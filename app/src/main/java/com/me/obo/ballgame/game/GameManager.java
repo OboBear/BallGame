@@ -31,9 +31,6 @@ public class GameManager {
 
     public void draw(Canvas canvas) {
         matrix.setTranslate(-myBallGroup.visibleRect.left, -myBallGroup.visibleRect.top);
-        float left = - myBallGroup.visibleRect.left;
-        float top = - myBallGroup.visibleRect.top;
-        Log.i(TAG, "draw left = " + left + " top = " + top);
         float ratio = GameConfig.screenWidth / (myBallGroup.visibleRect.right - myBallGroup.visibleRect.left);
         matrix.postScale(ratio, ratio);
         canvas.setMatrix(matrix);

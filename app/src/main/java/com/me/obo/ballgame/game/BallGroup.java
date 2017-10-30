@@ -56,13 +56,10 @@ public class BallGroup {
 
     public void draw(Canvas canvas, RectF visibleRect) {
         for (Ball ball : balls) {
-//            if (visibleRect.left <= ball.visibleRect.right
-//                    && visibleRect.right >= ball.visibleRect.left
-//                    && visibleRect.top <= ball.visibleRect.bottom
-//                    && visibleRect.bottom >= ball.visibleRect.top) {  // 落在可视范围
-//                canvas.drawCircle(ball.position.x, ball.position.y, ball.radius, paint);
-//            }
-            if (visibleRect.contains(ball.visibleRect)) {
+            if (visibleRect.left <= ball.visibleRect.right
+                    && visibleRect.right >= ball.visibleRect.left
+                    && visibleRect.top <= ball.visibleRect.bottom
+                    && visibleRect.bottom >= ball.visibleRect.top) {  // 落在可视范围
                 canvas.drawCircle(ball.position.x, ball.position.y, ball.radius, paint);
             }
         }
