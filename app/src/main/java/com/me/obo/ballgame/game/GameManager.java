@@ -21,6 +21,8 @@ public class GameManager {
     Site site;
     private Matrix matrix = new Matrix();
 
+    RickerManager rickerManager = new RickerManager();
+
     public GameManager() {
         site = new Site(1000, 1000);
         ballGroup = new BallGroup();

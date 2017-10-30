@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -22,6 +23,7 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public SurfaceHolder mSurfaceHolder = null;
     private GameManager gameManager;
     private long lastMoveTime = 0;
+    private PointF position = new PointF();
 
     public BallSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -73,6 +75,33 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     public void setSpeed(PointF speed) {
         gameManager.setSpeed(speed);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                position.x = event.getX();
+                position.y = event.getY();
+                invalidate();
+                return true;
+
+            case MotionEvent.ACTION_MOVE:
+                position.x = event.getX();
+                position.y = event.getY();
+                invalidate();
+
+                break;
+
+            case MotionEvent.ACTION_UP:
+                position.x = getWidth()/2;
+                position.y = getHeight()/2;
+                invalidate();
+                break;
+
+            default:
+        }
+        return super.onTouchEvent(event);
     }
 
     @Override

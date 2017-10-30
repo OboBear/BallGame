@@ -31,6 +31,5 @@ public class Site {
         for (int y = (int) (visibleRect.top/SEPARATE_LINE_DISTANCE); y * SEPARATE_LINE_DISTANCE < visibleRect.bottom; y++) {
             canvas.drawLine(visibleRect.left, y * SEPARATE_LINE_DISTANCE, visibleRect.right, y * SEPARATE_LINE_DISTANCE, paint);
         }
-
     }
 }
