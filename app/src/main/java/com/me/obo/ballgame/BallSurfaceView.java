@@ -55,7 +55,7 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    gameManager.move((System.currentTimeMillis() - lastMoveTime)/10000f);
+                    gameManager.move(30/100f);
 
                     startFresh();
                 }

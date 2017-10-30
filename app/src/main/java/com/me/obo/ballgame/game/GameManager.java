@@ -38,7 +38,7 @@ public class GameManager {
         matrix.postScale(ratio, ratio);
         canvas.setMatrix(matrix);
         canvas.drawColor(Color.BLACK);
-        site.draw(canvas);
+        site.draw(canvas, myBallGroup.visibleRect);
         myBallGroup.draw(canvas, myBallGroup.visibleRect);
         otherBallGroup.draw(canvas, myBallGroup.visibleRect);
     }
