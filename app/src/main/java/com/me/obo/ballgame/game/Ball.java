@@ -22,8 +22,10 @@ public class Ball {
     }
 
     public void move(float timeDistance) {
-        position.x += timeDistance * speed.x;
-        position.y += timeDistance * speed.y;
-        visibleRect.set(position.x - radius, position.y - radius, position.x + radius, position.y + radius);
+        if (speed.x != 0 || speed.y != 0) {
+            position.x += timeDistance * speed.x;
+            position.y += timeDistance * speed.y;
+            visibleRect.set(position.x - radius, position.y - radius, position.x + radius, position.y + radius);
+        }
     }
 }

@@ -46,4 +46,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ballSurfaceView.stopGame();
+    }
 }

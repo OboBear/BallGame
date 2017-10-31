@@ -2,6 +2,7 @@ package com.me.obo.ballgame;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -9,7 +10,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.me.obo.ballgame.game.GameConfig;
 import com.me.obo.ballgame.game.GameManager;
+import com.me.obo.ballgame.game.RickerManager;
 
 /**
  * Created by obo on 2017/10/28.
@@ -24,6 +27,9 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private GameManager gameManager;
     private long lastMoveTime = 0;
     private PointF position = new PointF();
+    private PointF positionBack = new PointF();
+    private RickerManager rickerManager;
+    private boolean isRuning = true;
 
     public BallSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -39,6 +45,7 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     public void init() {
         gameManager = new GameManager();
+
     }
 
     public void startGame() {
@@ -46,12 +53,14 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     private void startMove() {
+        rickerManager = new RickerManager(GameConfig.screenHeight / 6, GameConfig.screenHeight / 12);
+
         lastMoveTime = System.currentTimeMillis();
         new Thread() {
             @Override
             public void run() {
                 super.run();
-                while (true) {
+                while (isRuning) {
                     try {
                         sleep(30);
                     } catch (InterruptedException e) {
@@ -69,6 +78,7 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         if (mSurfaceHolder != null) {
             Canvas canvas = mSurfaceHolder.lockCanvas();
             gameManager.draw(canvas);
+            rickerManager.draw(canvas, positionBack, position);
             mSurfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
@@ -77,26 +87,28 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         gameManager.setSpeed(speed);
     }
 
+    public void stopGame() {
+        isRuning = false;
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 position.x = event.getX();
                 position.y = event.getY();
-                invalidate();
+                positionBack.x = event.getX();
+                positionBack.y = event.getY();
                 return true;
 
             case MotionEvent.ACTION_MOVE:
                 position.x = event.getX();
                 position.y = event.getY();
-                invalidate();
-
                 break;
 
             case MotionEvent.ACTION_UP:
-                position.x = getWidth()/2;
-                position.y = getHeight()/2;
-                invalidate();
+                position.x = positionBack.x;
+                position.y = positionBack.y;
                 break;
 
             default:
