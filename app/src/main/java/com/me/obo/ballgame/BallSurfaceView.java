@@ -25,11 +25,11 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     public SurfaceHolder mSurfaceHolder = null;
     private GameManager gameManager;
-    private long lastMoveTime = 0;
     private PointF position = new PointF();
     private PointF positionBack = new PointF();
     private RickerManager rickerManager;
     private boolean isRuning = true;
+    PointF speed = new PointF();
 
     public BallSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -55,7 +55,6 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private void startMove() {
         rickerManager = new RickerManager(GameConfig.screenHeight / 6, GameConfig.screenHeight / 12);
 
-        lastMoveTime = System.currentTimeMillis();
         new Thread() {
             @Override
             public void run() {
@@ -99,21 +98,48 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 position.y = event.getY();
                 positionBack.x = event.getX();
                 positionBack.y = event.getY();
-                return true;
+                break;
 
             case MotionEvent.ACTION_MOVE:
                 position.x = event.getX();
                 position.y = event.getY();
+
+                float xDis = position.x - positionBack.x;
+                float yDis = position.y - positionBack.y;
+                double xDisPow = Math.pow(xDis, 2);
+                double yDisPow = Math.pow(yDis, 2);
+                double lengthPow = Math.pow(GameConfig.screenHeight / 6, 2);
+
+                if (xDisPow + yDisPow > lengthPow) {
+                    double rate = Math.sqrt((xDisPow + yDisPow)/lengthPow);
+                    xDis /= rate;
+                    yDis /= rate;
+                    position.x = positionBack.x + xDis;
+                    position.y = positionBack.y + yDis;
+                }
+
+                speed.x = xDis / (GameConfig.screenHeight / 6);
+                speed.y = yDis / (GameConfig.screenHeight / 6);
+                if (Math.abs(speed.x) < 0.1) {
+                    speed.x = 0;
+                }
+                if (Math.abs(speed.y) < 0.1) {
+                    speed.y = 0;
+                }
+                gameManager.setSpeed(speed);
+
                 break;
 
             case MotionEvent.ACTION_UP:
+                positionBack.x = getWidth() / 6;
+                positionBack.y = getHeight() * 3/4;
                 position.x = positionBack.x;
                 position.y = positionBack.y;
                 break;
 
             default:
         }
-        return super.onTouchEvent(event);
+        return true;
     }
 
     @Override

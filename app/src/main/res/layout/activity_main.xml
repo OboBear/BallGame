@@ -41,9 +41,4 @@
         android:layout_below="@id/left"
         android:onClick="onClick"/>
 
-    <!--<com.me.obo.ballgame.game.RickerView-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="100dp" />-->
-
 </RelativeLayout>
