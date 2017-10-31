@@ -10,6 +10,7 @@ import android.graphics.RectF;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  * Created by obo on 2017/10/28.
@@ -67,5 +68,13 @@ public class BallGroup {
 
     public void setSpeed(PointF speed) {
         this.balls.get(0).speed = speed;
+    }
+
+    public void split() {
+
+    }
+
+    public void send() {
+
     }
 }

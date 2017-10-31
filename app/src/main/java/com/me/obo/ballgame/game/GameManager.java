@@ -30,13 +30,20 @@ public class GameManager {
     }
 
     public void draw(Canvas canvas) {
-        matrix.setTranslate(-myBallGroup.visibleRect.left, -myBallGroup.visibleRect.top);
+        // 设置位移
+        matrix.setTranslate(- myBallGroup.visibleRect.left, - myBallGroup.visibleRect.top);
+        // 设置界面缩放比例
         float ratio = GameConfig.screenWidth / (myBallGroup.visibleRect.right - myBallGroup.visibleRect.left);
         matrix.postScale(ratio, ratio);
+        // 设置Matrix
         canvas.setMatrix(matrix);
+        // 设置背景颜色
         canvas.drawColor(Color.BLACK);
+        // 绘制背景
         site.draw(canvas, myBallGroup.visibleRect);
+        // 绘制小球
         myBallGroup.draw(canvas, myBallGroup.visibleRect);
+        // 绘制摇杆
         otherBallGroup.draw(canvas, myBallGroup.visibleRect);
     }
 
@@ -47,5 +54,13 @@ public class GameManager {
 
     public void setSpeed(PointF speed) {
         myBallGroup.setSpeed(speed);
+    }
+
+    public void split() {
+        myBallGroup.split();
+    }
+
+    public void send() {
+        myBallGroup.send();
     }
 }

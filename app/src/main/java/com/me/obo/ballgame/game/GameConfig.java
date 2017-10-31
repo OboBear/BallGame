@@ -8,4 +8,5 @@ package com.me.obo.ballgame.game;
 public class GameConfig {
     public static int screenWidth;
     public static int screenHeight;
+    public static float widthHeightRatio;
 }

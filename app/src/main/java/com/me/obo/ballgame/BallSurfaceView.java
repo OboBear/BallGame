@@ -103,13 +103,11 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             case MotionEvent.ACTION_MOVE:
                 position.x = event.getX();
                 position.y = event.getY();
-
                 float xDis = position.x - positionBack.x;
                 float yDis = position.y - positionBack.y;
                 double xDisPow = Math.pow(xDis, 2);
                 double yDisPow = Math.pow(yDis, 2);
                 double lengthPow = Math.pow(GameConfig.screenHeight / 6, 2);
-
                 if (xDisPow + yDisPow > lengthPow) {
                     double rate = Math.sqrt((xDisPow + yDisPow)/lengthPow);
                     xDis /= rate;
@@ -117,7 +115,6 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                     position.x = positionBack.x + xDis;
                     position.y = positionBack.y + yDis;
                 }
-
                 speed.x = xDis / (GameConfig.screenHeight / 6);
                 speed.y = yDis / (GameConfig.screenHeight / 6);
                 if (Math.abs(speed.x) < 0.1) {
@@ -127,7 +124,6 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                     speed.y = 0;
                 }
                 gameManager.setSpeed(speed);
-
                 break;
 
             case MotionEvent.ACTION_UP:
@@ -155,5 +151,13 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
 
+    }
+
+    public void split() {
+        gameManager.split();
+    }
+
+    public void send() {
+        gameManager.send();
     }
 }

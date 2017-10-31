@@ -24,6 +24,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         GameConfig.screenWidth = wm.getDefaultDisplay().getWidth();
         GameConfig.screenHeight = wm.getDefaultDisplay().getHeight();
+        GameConfig.widthHeightRatio = GameConfig.screenWidth * 1f / GameConfig.screenHeight;
 
         ballSurfaceView = (BallSurfaceView) findViewById(R.id.game_view);
         ballSurfaceView.startGame();
@@ -32,17 +33,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.top:
-                ballSurfaceView.setSpeed(new PointF(0, -1));
+            case R.id.split:
+                ballSurfaceView.split();
                 break;
-            case R.id.left:
-                ballSurfaceView.setSpeed(new PointF(-1, 0));
-                break;
-            case R.id.right:
-                ballSurfaceView.setSpeed(new PointF(1, 0));
-                break;
-            case R.id.bottom:
-                ballSurfaceView.setSpeed(new PointF(0, 1));
+            case R.id.send:
+                ballSurfaceView.send();
                 break;
         }
     }
