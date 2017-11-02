@@ -27,20 +27,18 @@ public class BallGroup {
         paint = new Paint();
         paint.setColor(Color.RED);
         paint.setAntiAlias(true);
-
         Ball ball = new Ball(new PointF((int) (Math.random() * 900) + 100, (int) (Math.random() * 900) + 100), new PointF(), 10);
         balls.add(ball);
-        visibleRect = new RectF(ball.position.x - ball.radius * 4, ball.position.y - ball.radius * 4, ball.position.x + ball.radius * 4, ball.position.y + ball.radius * 4);
+        visibleRect = new RectF(ball.position.x - ball.radius * 4, ball.position.y - ball.radius * 4 / GameConfig.widthHeightRatio, ball.position.x + ball.radius * 4, ball.position.y + ball.radius * 4 / GameConfig.widthHeightRatio);
     }
 
     public BallGroup(PointF position, PointF speed, float radius) {
         paint = new Paint();
         paint.setColor(Color.RED);
         paint.setAntiAlias(true);
-
         Ball ball = new Ball(position, speed, radius);
         balls.add(ball);
-        visibleRect = new RectF(ball.position.x - ball.radius * 4, ball.position.y - ball.radius * 4, ball.position.x + ball.radius * 4, ball.position.y + ball.radius * 4);
+        visibleRect = new RectF(ball.position.x - ball.radius * 4, ball.position.y - ball.radius * 4 / GameConfig.widthHeightRatio, ball.position.x + ball.radius * 4, ball.position.y + ball.radius * 4 / GameConfig.widthHeightRatio);
     }
 
     public void freshVisibleRect() {
@@ -50,7 +48,7 @@ public class BallGroup {
     public void move(float timeDistance) {
         for (Ball ball : balls) {
             ball.move(timeDistance);
-            visibleRect.set(ball.position.x - ball.radius * 4, ball.position.y - ball.radius * 4, ball.position.x + ball.radius * 4, ball.position.y + ball.radius * 4);
+            visibleRect.set(ball.position.x - ball.radius * 4, ball.position.y - ball.radius * 4 / GameConfig.widthHeightRatio, ball.position.x + ball.radius * 4, ball.position.y + ball.radius * 4 / GameConfig.widthHeightRatio);
         }
     }
 
@@ -71,7 +69,6 @@ public class BallGroup {
     }
 
     public void split() {
-
     }
 
     public void send() {

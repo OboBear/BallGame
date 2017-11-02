@@ -12,13 +12,25 @@ public class Ball {
     public PointF position;
     public PointF speed;
     public float radius;
+    public float weight;
     public RectF visibleRect;
 
-    public Ball(PointF position, PointF speed, float radius) {
+    public Ball(PointF position, PointF speed, float weight) {
         this.position = position;
         this.speed = speed;
-        this.radius = radius;
+        this.radius = (float) Math.sqrt(weight);
+        this.weight = weight;
         visibleRect = new RectF(position.x - radius, position.y - radius, position.x + radius, position.y + radius);
+    }
+
+    /**
+     * 设置重量
+     * @param weight
+     */
+    public void setWeight(float weight) {
+        this.radius = (float) Math.sqrt(weight);
+        this.weight = weight;
+        visibleRect.set(position.x - radius, position.y - radius, position.x + radius, position.y + radius);
     }
 
     public void move(float timeDistance) {

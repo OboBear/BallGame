@@ -61,12 +61,11 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 super.run();
                 while (isRuning) {
                     try {
-                        sleep(30);
+                        sleep(20);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    gameManager.move(30/100f);
-
+                    gameManager.move(1f);
                     startFresh();
                 }
             }
@@ -145,7 +144,6 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
     }
 
     @Override
