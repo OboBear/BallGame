@@ -18,6 +18,9 @@ public class GameManager {
     BallGroup ballGroup;
     BallGroup myBallGroup;
     BallGroup otherBallGroup ;
+    FoodGroup foodGroup;
+
+
     Site site;
     private Matrix matrix = new Matrix();
 
@@ -27,6 +30,7 @@ public class GameManager {
         myBallGroup = new BallGroup();
         PointF p = myBallGroup.balls.get(0).position;
         otherBallGroup = new BallGroup( new PointF(p.x + 10, p.y + 10), new PointF(1f, 1f), 5);
+        foodGroup = new FoodGroup();
     }
 
     public void draw(Canvas canvas) {

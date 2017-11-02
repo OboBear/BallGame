@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 /**
+ * 小球集合，可以用于表示一个用户的所有小球
  * Created by obo on 2017/10/28.
  * Email:obo1993@gmail.com
  */
@@ -39,10 +40,6 @@ public class BallGroup {
         Ball ball = new Ball(position, speed, radius);
         balls.add(ball);
         visibleRect = new RectF(ball.position.x - ball.radius * 4, ball.position.y - ball.radius * 4 / GameConfig.widthHeightRatio, ball.position.x + ball.radius * 4, ball.position.y + ball.radius * 4 / GameConfig.widthHeightRatio);
-    }
-
-    public void freshVisibleRect() {
-
     }
 
     public void move(float timeDistance) {
