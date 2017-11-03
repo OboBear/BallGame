@@ -11,13 +11,13 @@ public class BaseObject {
     public PointF position;
     public PointF speed;
     public float radius;
-    public float weight;
+    public int weight;
 
     public BaseObject() {
 
     }
 
-    public BaseObject(PointF position, PointF speed, float weight) {
+    public BaseObject(PointF position, PointF speed, int weight) {
         this.position = position;
         this.speed = speed;
         this.radius = (float) Math.sqrt(weight);
@@ -28,7 +28,7 @@ public class BaseObject {
      * 设置重量
      * @param weight
      */
-    public void setWeight(float weight) {
+    public void setWeight(int weight) {
         this.radius = (float) Math.sqrt(weight);
         this.weight = weight;
     }

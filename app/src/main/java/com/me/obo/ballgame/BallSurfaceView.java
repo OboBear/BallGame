@@ -53,7 +53,7 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     private void startMove() {
-        rickerManager = new RickerManager(GameConfig.screenHeight / 6, GameConfig.screenHeight / 12);
+        rickerManager = new RickerManager(GameConfig.screenHeight / 8, GameConfig.screenHeight / 16);
 
         new Thread() {
             @Override
@@ -76,13 +76,10 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         if (mSurfaceHolder != null) {
             Canvas canvas = mSurfaceHolder.lockCanvas();
             gameManager.draw(canvas);
+            // 绘制摇杆
             rickerManager.draw(canvas, positionBack, position);
             mSurfaceHolder.unlockCanvasAndPost(canvas);
         }
-    }
-
-    public void setSpeed(PointF speed) {
-        gameManager.setSpeed(speed);
     }
 
     public void stopGame() {
@@ -106,7 +103,7 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 float yDis = position.y - positionBack.y;
                 double xDisPow = Math.pow(xDis, 2);
                 double yDisPow = Math.pow(yDis, 2);
-                double lengthPow = Math.pow(GameConfig.screenHeight / 6, 2);
+                double lengthPow = Math.pow(GameConfig.screenHeight / 8, 2);
                 if (xDisPow + yDisPow > lengthPow) {
                     double rate = Math.sqrt((xDisPow + yDisPow)/lengthPow);
                     xDis /= rate;

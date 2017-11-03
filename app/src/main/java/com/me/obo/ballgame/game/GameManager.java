@@ -19,8 +19,6 @@ public class GameManager {
     BallGroup myBallGroup;
     BallGroup otherBallGroup ;
     FoodGroup foodGroup;
-
-
     Site site;
     private Matrix matrix = new Matrix();
 
@@ -47,17 +45,20 @@ public class GameManager {
         site.draw(canvas, myBallGroup.visibleRect);
         // 绘制小球
         myBallGroup.draw(canvas, myBallGroup.visibleRect);
-        // 绘制摇杆
+        // 绘制其他小球
         otherBallGroup.draw(canvas, myBallGroup.visibleRect);
     }
 
     public void move(float timeDistance) {
-//        otherBallGroup.move(timeDistance);
         myBallGroup.move(timeDistance);
     }
 
     public void setSpeed(PointF speed) {
         myBallGroup.setSpeed(speed);
+    }
+
+    public void setAccelerate(PointF accelerate) {
+        myBallGroup.setAccelerate(accelerate);
     }
 
     public void split() {

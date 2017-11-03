@@ -12,7 +12,7 @@ public class Ball extends BaseObject {
 
     public RectF visibleRect;
 
-    public Ball(PointF position, PointF speed, float weight) {
+    public Ball(PointF position, PointF speed, int weight) {
         super(position, speed, weight);
         visibleRect = new RectF(position.x - radius, position.y - radius, position.x + radius, position.y + radius);
     }
@@ -21,7 +21,7 @@ public class Ball extends BaseObject {
      * 设置重量
      * @param weight
      */
-    public void setWeight(float weight) {
+    public void setWeight(int weight) {
         super.setWeight(weight);
         visibleRect.set(position.x - radius, position.y - radius, position.x + radius, position.y + radius);
     }

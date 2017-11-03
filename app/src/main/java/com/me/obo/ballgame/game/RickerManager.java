@@ -28,7 +28,7 @@ public class RickerManager {
 
     public void draw(Canvas canvas, PointF positionBack, PointF positionFor) {
         canvas.setMatrix(matrix);
-        canvas.drawCircle(positionBack.x, positionBack.y  , backRadius, paintCircleBack);
+        canvas.drawCircle(positionBack.x, positionBack.y , backRadius, paintCircleBack);
         canvas.drawCircle(positionFor.x, positionFor.y, frontRadius, paintCircleFront);
     }
 }

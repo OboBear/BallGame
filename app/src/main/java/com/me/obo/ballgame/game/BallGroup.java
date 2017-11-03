@@ -21,6 +21,9 @@ import java.util.PriorityQueue;
 public class BallGroup {
     List<Ball> balls = new ArrayList<>();
     RectF visibleRect = new RectF();
+    PointF accelerate;
+    PointF gravityCenter = new PointF();
+    private int weight;
 
     private Paint paint;
 
@@ -28,25 +31,60 @@ public class BallGroup {
         paint = new Paint();
         paint.setColor(Color.RED);
         paint.setAntiAlias(true);
-        Ball ball = new Ball(new PointF((int) (Math.random() * 900) + 100, (int) (Math.random() * 900) + 100), new PointF(), 10);
+        Ball ball = new Ball(new PointF((int) (Math.random() * 900) + 100, (int) (Math.random() * 900) + 100), new PointF(), 100);
         balls.add(ball);
-        visibleRect = new RectF(ball.position.x - ball.radius * 4, ball.position.y - ball.radius * 4 / GameConfig.widthHeightRatio, ball.position.x + ball.radius * 4, ball.position.y + ball.radius * 4 / GameConfig.widthHeightRatio);
+        weight = ball.weight;
+        resetVisibleRect();
+        resetGravityCenter();
     }
 
-    public BallGroup(PointF position, PointF speed, float radius) {
+    public BallGroup(PointF position, PointF speed, int radius) {
         paint = new Paint();
         paint.setColor(Color.RED);
         paint.setAntiAlias(true);
         Ball ball = new Ball(position, speed, radius);
         balls.add(ball);
-        visibleRect = new RectF(ball.position.x - ball.radius * 4, ball.position.y - ball.radius * 4 / GameConfig.widthHeightRatio, ball.position.x + ball.radius * 4, ball.position.y + ball.radius * 4 / GameConfig.widthHeightRatio);
+        resetVisibleRect();
+        resetGravityCenter();
     }
 
     public void move(float timeDistance) {
         for (Ball ball : balls) {
             ball.move(timeDistance);
-            visibleRect.set(ball.position.x - ball.radius * 4, ball.position.y - ball.radius * 4 / GameConfig.widthHeightRatio, ball.position.x + ball.radius * 4, ball.position.y + ball.radius * 4 / GameConfig.widthHeightRatio);
         }
+        resetVisibleRect();
+        resetGravityCenter();
+    }
+
+    private void resetVisibleRect() {
+        visibleRect.set(balls.get(0).visibleRect);
+        for (Ball ball : balls) {
+            visibleRect.union(ball.visibleRect);
+        }
+        visibleRect.left -= Math.sqrt(weight) + 20;
+        visibleRect.right += Math.sqrt(weight) + 20;
+        visibleRect.top -= Math.sqrt(weight) + 20;
+        visibleRect.bottom += Math.sqrt(weight) + 20;
+
+        float needWidth = visibleRect.height() * GameConfig.widthHeightRatio;
+        if (visibleRect.right - visibleRect.left > needWidth) {
+            float needHeight = visibleRect.width() / GameConfig.widthHeightRatio;
+            visibleRect.top = visibleRect.centerY() - needHeight/2;
+            visibleRect.bottom = visibleRect.centerY() + needHeight/2;
+        } else {
+            visibleRect.left = visibleRect.centerX() - needWidth/2;
+            visibleRect.right = visibleRect.centerX() + needWidth/2;
+        }
+    }
+
+    private void resetGravityCenter() {
+        float x = 0;
+        float y = 0;
+        for (Ball ball : balls) {
+            x += ball.weight * ball.position.x;
+            y += ball.weight * ball.position.y;
+        }
+        gravityCenter.set(x/balls.size(), y/balls.size());
     }
 
 
@@ -62,13 +100,20 @@ public class BallGroup {
     }
 
     public void setSpeed(PointF speed) {
-        this.balls.get(0).speed = speed;
+        for(Ball ball: this.balls) {
+            ball.speed = speed;
+        }
     }
 
     public void split() {
+
     }
 
     public void send() {
 
+    }
+
+    public void setAccelerate(PointF accelerate) {
+        this.accelerate = accelerate;
     }
 }
