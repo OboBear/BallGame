@@ -19,13 +19,13 @@ import java.util.PriorityQueue;
  */
 
 public class BallGroup {
-    List<Ball> balls = new ArrayList<>();
-    RectF visibleRect = new RectF();
-    PointF accelerate;
-    PointF gravityCenter = new PointF();
+    public List<Ball> balls = new ArrayList<>();
+    public RectF visibleRect = new RectF();
+    private PointF accelerate;
+    private PointF gravityCenter = new PointF();
     private int weight;
-
     private Paint paint;
+
 
     public BallGroup() {
         paint = new Paint();
