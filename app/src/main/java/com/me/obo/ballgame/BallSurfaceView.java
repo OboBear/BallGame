@@ -14,6 +14,13 @@ import com.me.obo.ballgame.game.GameConfig;
 import com.me.obo.ballgame.game.GameManager;
 import com.me.obo.ballgame.game.RickerManager;
 
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by obo on 2017/10/28.
  * Email:obo1993@gmail.com
@@ -55,21 +62,21 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private void startMove() {
         rickerManager = new RickerManager(GameConfig.screenHeight / 8, GameConfig.screenHeight / 16);
 
-        new Thread() {
+        TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                super.run();
-                while (isRuning) {
-                    try {
-                        sleep(20);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    gameManager.move(1f);
-                    startFresh();
-                }
+
             }
-        }.start();
+        };
+
+        ScheduledExecutorService executor  = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                gameManager.move(1f);
+                startFresh();
+            }
+        }, 0, 50/3,  TimeUnit.MILLISECONDS);
     }
 
     private void startFresh() {

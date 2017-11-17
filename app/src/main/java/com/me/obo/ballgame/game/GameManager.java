@@ -15,11 +15,11 @@ public class GameManager {
 
     private static final String TAG = "GameManager";
 
-    BallGroup ballGroup;
-    BallGroup myBallGroup;
-    BallGroup otherBallGroup ;
-    FoodGroup foodGroup;
-    Site site;
+    private BallGroup ballGroup;
+    private BallGroup myBallGroup;
+    private BallGroup otherBallGroup ;
+    private FoodGroup foodGroup;
+    private Site site;
     private Matrix matrix = new Matrix();
 
     public GameManager() {
