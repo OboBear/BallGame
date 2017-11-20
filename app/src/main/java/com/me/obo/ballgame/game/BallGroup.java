@@ -23,6 +23,7 @@ public class BallGroup {
     public RectF visibleRect = new RectF();
     private PointF accelerate;
     private PointF gravityCenter = new PointF();
+    private PointF speedCenter = new PointF();
     private int weight;
     private Paint paint;
 
@@ -80,11 +81,13 @@ public class BallGroup {
     private void resetGravityCenter() {
         float x = 0;
         float y = 0;
+        float totalWeight=0;
         for (Ball ball : balls) {
             x += ball.weight * ball.position.x;
             y += ball.weight * ball.position.y;
+            totalWeight += ball.weight;
         }
-        gravityCenter.set(x/balls.size(), y/balls.size());
+        gravityCenter.set(x/totalWeight, y/totalWeight);
     }
 
 
@@ -115,5 +118,9 @@ public class BallGroup {
 
     public void setAccelerate(PointF accelerate) {
         this.accelerate = accelerate;
+        this.speedCenter.set(this.accelerate.x + this.gravityCenter.x, this.accelerate.y + this.gravityCenter.y);
+        for (Ball ball : balls) {
+            ball.setExpectSpeedWithSpeedCenter(speedCenter);
+        }
     }
 }

@@ -12,6 +12,9 @@ public class BaseObject {
     public PointF speed;
     public float radius;
     public int weight;
+    public PointF expectSpeed = new PointF();
+    public float maxSpeed;
+    public static final float MAX_SPEED = 8;
 
     public BaseObject() {
 

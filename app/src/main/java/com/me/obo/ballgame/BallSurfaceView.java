@@ -61,14 +61,6 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     private void startMove() {
         rickerManager = new RickerManager(GameConfig.screenHeight / 8, GameConfig.screenHeight / 16);
-
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-
-            }
-        };
-
         ScheduledExecutorService executor  = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(new Runnable() {
             @Override
@@ -101,6 +93,9 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 position.y = event.getY();
                 positionBack.x = event.getX();
                 positionBack.y = event.getY();
+                speed.x = 0;
+                speed.y = 0;
+                gameManager.setAccelerate(speed);
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -127,6 +122,7 @@ public class BallSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                     speed.y = 0;
                 }
                 gameManager.setSpeed(speed);
+                gameManager.setAccelerate(speed);
                 break;
 
             case MotionEvent.ACTION_UP:

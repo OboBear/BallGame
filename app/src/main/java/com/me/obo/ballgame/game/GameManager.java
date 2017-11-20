@@ -54,7 +54,7 @@ public class GameManager {
     }
 
     public void setSpeed(PointF speed) {
-        myBallGroup.setSpeed(speed);
+//        myBallGroup.setSpeed(speed);
     }
 
     public void setAccelerate(PointF accelerate) {
